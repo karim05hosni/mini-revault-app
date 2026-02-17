@@ -2,7 +2,10 @@
 import { Controller, Get, Param, Req, UseGuards, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { WalletsService } from './wallets.service';
 import { JwtAuthGuard } from '../common/guards/jwt-guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+
+@ApiBearerAuth('bearer')
 @Controller('api/wallets')
 export class WalletsController {
 	constructor(private readonly walletsService: WalletsService) {}
