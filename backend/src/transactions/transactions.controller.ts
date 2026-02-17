@@ -51,7 +51,7 @@ export class TransactionsController {
     @Get('history')
     async getHistory(@Req() req, @Query('type') type?: string) {
         try {
-            return await this.transactionsService.getHistory(req.user.sub, type);
+            return await this.transactionsService.getHistory(req.user.userId, type);
         } catch (err) {
             throw new BadRequestException(err);
         }
