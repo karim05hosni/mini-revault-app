@@ -77,6 +77,7 @@
   - `fromWalletId` (string, required)
   - `toWalletId` (string, required)
   - `amount` (string, required)
+  - `currency` (string, required)
 - **Response:**
   - `success` (boolean), `transactionId` (string)
 

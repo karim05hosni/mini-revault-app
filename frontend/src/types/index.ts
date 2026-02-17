@@ -40,7 +40,7 @@ export interface AnalyticsData {
   amount: number;
 }
 
-export type TransactionType = 'all' | 'sent' | 'received' | 'deposit' | 'withdrawal' | 'conversion';
+export type TransactionType = 'all' | 'sent' | 'transfer' | 'received' | 'deposit' | 'withdrawal' | 'conversion';
 
 export interface ApiError {
   statusCode: number;

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import type { AuthResponse, RegisterResponse, Wallet, Transaction, ApiError } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -50,7 +50,7 @@ export const transactionApi = {
   deposit: (data: { walletId: string; amount: string; currency: string }) =>
     api.post<{ success: boolean; transactionId: string }>('/transactions/deposit', data),
 
-  withdraw: (data: { walletId: string; amountCents: number; currency: string }) =>
+  withdraw: (data: { walletId: string; amount: string; currency: string }) =>
     api.post<{ success: boolean; transactionId: string }>('/transactions/withdraw', data),
 
   transfer: (data: { senderWalletId: string; receiverEmail: string; amount: string; currency: string }) =>

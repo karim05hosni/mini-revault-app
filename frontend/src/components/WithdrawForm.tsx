@@ -26,12 +26,9 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ wallets, onSuccess }
       if (!amount || parseFloat(amount) <= 0) {
         throw new Error('Amount must be greater than 0');
       }
-
-      const amountCents = Math.round(parseFloat(amount) * 100);
-
       await transactionApi.withdraw({
         walletId: selectedWalletId,
-        amountCents,
+        amount,
         currency: selectedWallet?.currency || '',
       });
 

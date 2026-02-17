@@ -9,6 +9,7 @@ import { WithdrawForm } from '../components/WithdrawForm';
 import { TransferForm } from '../components/TransferForm';
 import { TransactionHistory } from '../components/TransactionHistory';
 import { Analytics } from '../components/Analytics';
+import { CurrencyExchangeForm } from '../components/CurrencyExchangeForm';
 import type { Wallet } from '../types';
 
 export const Dashboard: React.FC = () => {
@@ -86,16 +87,18 @@ export const Dashboard: React.FC = () => {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+
+        <section className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10">
           <DepositForm wallets={wallets} onSuccess={handleTransactionSuccess} />
           <WithdrawForm wallets={wallets} onSuccess={handleTransactionSuccess} />
           <TransferForm wallets={wallets} onSuccess={handleTransactionSuccess} />
+          <CurrencyExchangeForm wallets={wallets} onSuccess={handleTransactionSuccess} />
         </section>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="lg:col-span-2">
+          {/* <div className="lg:col-span-2">
             <Analytics refreshTrigger={refreshTrigger} />
-          </div>
+          </div> */}
           <div className="lg:col-span-2">
             <TransactionHistory refreshTrigger={refreshTrigger} />
           </div>

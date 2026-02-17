@@ -21,8 +21,8 @@ export class WalletsService {
     async findById(walletId: string) {
         return this.walletsRepo.findOne({ where: { id: walletId } });
     }
-   async getUserWallets(userId: string) {
-       return this.walletsRepo.find({ where: { userId } });
-   }
+    async getUserWallets(userId: string) {
+        return this.walletsRepo.find({ where: { userId } });
+    }
 
 }

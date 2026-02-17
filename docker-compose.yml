@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:17.7-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0000
+      POSTGRES_DB: minirevolut
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      DB_PORT: 5432
+      DATABASE_URL: postgres://postgres:0000@db:5432/minirevolut
+      DB_USERNAME: postgres
+      DB_PASSWORD: 0000
+      DB_HOST: db
+      DB_NAME: minirevolut
+      JWT_SECRET: f81b2a99add6ff54d1f8c43f7c3715c5a8ccebd3b5086f02b34ad38ff2c68e60818c0b99e9055e923b987a9353dfaa14eb56718878ba3b3fffd88847d52d59e1
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "5173:80"
+
+volumes:
+  db-data:

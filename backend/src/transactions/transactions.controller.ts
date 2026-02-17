@@ -10,7 +10,7 @@ import { ExchangeDto } from './dto/exchange.dto';
 
 
 @ApiBearerAuth('bearer')
-@Controller('transactions')
+@Controller('api/transactions')
 export class TransactionsController {
     constructor(private readonly transactionsService: TransactionsService) { }
 
@@ -18,7 +18,7 @@ export class TransactionsController {
     @Post('deposit')
     async deposit(@Body() dto: DepositDto, @Req() req) {
         try {
-            return await this.transactionsService.deposit(dto, req.user.sub);
+            return await this.transactionsService.deposit(dto, req.user.userId);
         } catch (err) {
             throw new BadRequestException(err);
         }
@@ -30,7 +30,7 @@ export class TransactionsController {
     @Post('withdraw')
     async withdraw(@Body() dto: WithdrawDto, @Req() req) {
         try {
-            return await this.transactionsService.withdraw(dto, req.user.sub);
+            return await this.transactionsService.withdraw(dto, req.user.userId);
         } catch (err) {
             throw new BadRequestException(err);
         }
@@ -60,7 +60,7 @@ export class TransactionsController {
     @Post('exchange')
     async exchange(@Body() dto: ExchangeDto, @Req() req) {
         try {
-            return await this.transactionsService.exchange(dto, req.user.sub);
+            return await this.transactionsService.exchange(dto, req.user.userId);
         } catch (err) {
             throw new BadRequestException(err);
         }
