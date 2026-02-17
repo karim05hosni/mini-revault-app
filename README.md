@@ -134,13 +134,12 @@ This guarantees atomicity and prevents double-spending.
 
 ## Currency Conversion
 
-Exchange rates are stored as scaled integers to avoid floating-point precision errors.
+- Exchange rates are stored as scaled integers to avoid floating-point precision errors.
+- Conversion uses fixed-point arithmetic:
+- converted_amount = (amount * rate) / scale
+- Floor rounding is applied to prevent over-crediting.
 
-Conversion uses fixed-point arithmetic:
-
-converted_amount = (amount * rate) / scale
-
-Floor rounding is applied to prevent over-crediting.
+*Check "backend/docs/math.md"*
 
 ## Scaling Strategy
 1. Stateless Authentication
@@ -188,10 +187,11 @@ We would:
 - Append transaction entries.
 - Compute balances from ledger events.
 - This approach improves auditability and financial traceability.
+- Rate limiting by using Redis-backed Throttler for distributed apps
 
 ## Production Improvements
 
-For real large scale systems, the following would be added:
+For banking scale systems, the following is suggested:
 
 - Multi-factor authentication (MFA)
 - Fraud detection engine

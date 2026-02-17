@@ -9,6 +9,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/jwt-strategy';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -16,6 +17,14 @@ import { JwtStrategy } from './auth/jwt-strategy';
     ConfigModule.forRoot({
       isGlobal: true, // Makes ConfigModule available globally
       envFilePath: '.env', // Specifies the path to the .env file
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ]
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
