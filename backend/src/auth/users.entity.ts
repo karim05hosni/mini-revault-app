@@ -16,6 +16,9 @@ export class UsersEntity {
   @Column({ name: 'password_hash', type: 'text' })
   passwordHash: string;
 
+  @Column({ name: 'provider', type: 'enum', enum: ['local', 'google'], nullable: false })
+  provider: 'local' | 'google';
+
   @Column({ type: 'enum', enum: UserRole, default: UserRole.user })
   role: UserRole;
 

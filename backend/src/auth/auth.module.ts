@@ -8,6 +8,7 @@ import { UsersEntity } from './users.entity';
 import { ConfigService } from '@nestjs/config';
 import { WalletsModule } from '../wallets/wallets.module';
 import { WalletsService } from '../wallets/wallets.service';
+import { GoogleStrategy } from './google-strategy';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { WalletsService } from '../wallets/wallets.service';
     WalletsModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthRepository],
+  providers: [AuthService, AuthRepository, GoogleStrategy],
+  exports: [GoogleStrategy]
 })
 export class AuthModule {}

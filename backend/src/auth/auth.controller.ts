@@ -1,12 +1,14 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 import { LoginUserDto } from './dto/login-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GoogleOauthGuard } from 'src/common/guards/OAuth-guard';
 
 @Controller('api/auth')
 export class AuthController {
-	constructor(private readonly authService: AuthService) {}
+	constructor(private readonly authService: AuthService) { }
 
 	@Post('register')
 	async register(@Body() dto: RegisterUserDto) {
@@ -24,5 +26,14 @@ export class AuthController {
 		} catch (err) {
 			throw new BadRequestException(err);
 		}
+	}
+	@Get('google')
+	@UseGuards(GoogleOauthGuard)
+	async googleAuth() { }
+
+	@Get('google/callback')
+	@UseGuards(GoogleOauthGuard)
+	async googleAuthRedirect(@Req() req) {
+		return this.authService.login(req.user);
 	}
 }

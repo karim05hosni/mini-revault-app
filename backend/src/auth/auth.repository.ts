@@ -18,4 +18,14 @@ export class AuthRepository {
 		const user = this.repo.create(data);
 		return this.repo.save(user);
 	}
+
+	async createGoogleUser(data: { email: string; fullName: string }): Promise<UsersEntity> {
+		const user = this.repo.create({
+			email: data.email,
+			fullName: data.fullName,
+			passwordHash: '', // No password for Google users
+			provider: 'google',
+		});
+		return this.repo.save(user);
+	}
 }

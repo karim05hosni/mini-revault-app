@@ -10,6 +10,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/jwt-strategy';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { GoogleStrategy } from './auth/google-strategy';
 
 @Module({
   imports: [
