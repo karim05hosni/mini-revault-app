@@ -1,4 +1,4 @@
-# Mini-Revolut – FinTech Wallet System
+# Mini-Revault – FinTech Wallet System
 
 A simplified digital banking web application built with NestJS, PostgreSQL, and React.
 
