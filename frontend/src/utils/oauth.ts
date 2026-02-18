@@ -22,7 +22,7 @@ export const handleOAuthCallback = (callback: (token: string, user: any) => void
     }
   }
 
-  const storedToken = localStorage.getItem('access_token');
+  const storedToken = localStorage.getItem('authToken');
   const storedUser = localStorage.getItem('user');
   if (storedToken && storedUser) {
     try {
