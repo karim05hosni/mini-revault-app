@@ -1,6 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL + '/api';
 
 export const initiateGoogleAuth = () => {
+  console.log('Initiating Google OAuth flow...', { API_BASE_URL });
+
   const authUrl = `${API_BASE_URL}/auth/google`;
   window.location.href = authUrl;
 };
