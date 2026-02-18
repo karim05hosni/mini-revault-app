@@ -26,8 +26,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         profile: Profile,
         done: VerifyCallback,
     ) {
-        console.log('Google profile received:', profile);
-        // const { emails, name } = profile;
         if (!profile.emails || profile.emails.length === 0 || !profile.name) {
             return done(new Error('No email found in Google profile'));
         }
@@ -35,7 +33,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             email: profile.emails[0].value,
             fullName: profile.name.givenName + ' ' + profile.name.familyName,
         });
-        console.log('Google user validated:', user);
         if (!user) {
             return done(new Error('Error validating Google user'));
         }

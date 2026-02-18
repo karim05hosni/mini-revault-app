@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     handleOAuthCallback((token, user) => {
-      localStorage.setItem('authToken', token);
+      localStorage.setItem('access_token', token);
       localStorage.setItem('user', JSON.stringify(user));
       navigate('/dashboard');
     });
