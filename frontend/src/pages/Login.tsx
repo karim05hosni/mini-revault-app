@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { GoogleAuthButton } from '../components/GoogleAuthButton';
+import { initiateGoogleAuth, handleOAuthCallback } from '../utils/oauth';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +11,14 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleOAuthCallback((token, user) => {
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/dashboard');
+    });
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,6 +83,17 @@ export const Login: React.FC = () => {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-slate-600">Or continue with</span>
+            </div>
+          </div>
+
+          <GoogleAuthButton text="signin" onClick={initiateGoogleAuth} />
 
           <p className="text-center text-slate-600 text-sm mt-6">
             Don't have an account?{' '}
