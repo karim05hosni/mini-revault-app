@@ -11,9 +11,9 @@ This project focuses on financial integrity, concurrency safety, and scalable ba
 
 ## Live Demo
 
-Frontend: https://mini-revault-app.vercel.app  
-Backend API: https://imaginative-youthfulness-production-ac85.up.railway.app
-API Swagger documentation (for Auth & transactions): https://imaginative-youthfulness-production-ac85.up.railway.app/docs/api
+- Frontend: https://mini-revault-app.vercel.app  
+- Backend API: https://imaginative-youthfulness-production-ac85.up.railway.app
+- API Swagger documentation (for Auth & transactions): https://imaginative-youthfulness-production-ac85.up.railway.app/docs/api
 
 *NOTE*: there is a little delay due to free hosting limitations
 
@@ -57,11 +57,13 @@ npm run dev
 ## Environment Variables
 Example (.env):
 
-DATABASE_URL=
-JWT_SECRET=
-FRONTEND_URL=
-PORT=
-
+- DATABASE_URL=
+- JWT_SECRET=
+- FRONTEND_URL=
+- PORT=
+- GOOGLE_CLIENT_ID=
+- GOOGLE_CLIENT_SECRET=
+- GOOGLE_CALLBACK_URL=
 
 
 ## Architecture Overview
@@ -202,7 +204,32 @@ For banking scale systems, the following is suggested:
 - KYC integration
 
 
+## Recent features
 
+### OAuth Google
 
+Architecture Notes
 
+- Google is used only as an Identity Provider
+- The system still issues its own JWT tokens
+- OAuth does not replace internal authorization logic
+- Google users are stored with: provider = 'google', providerId (Google ID), passwordHash = null
+
+If a user already exists with the same email (local account), the accounts are automatically linked.
+
+Security Considerations
+
+- No Google access tokens are stored
+- Only verified email from Google profile is trusted
+- JWT secret is stored in environment variables
+- OAuth callback URL is restricted in Google Cloud Console
+- Password-based and OAuth-based authentication share the same JWT issuance system
+- Production Improvement
+
+In production:
+
+- JWT would be delivered via HTTP-only secure cookies
+- HTTPS would be enforced
+- Refresh token rotation would be implemented
+- OAuth state parameter validation would be strictly enforced
 
